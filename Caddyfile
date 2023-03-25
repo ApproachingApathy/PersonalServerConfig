@@ -1,0 +1,5 @@
+cms.ephriamhenderson.dev {
+	reverse_proxy directus:8055
+
+}
+

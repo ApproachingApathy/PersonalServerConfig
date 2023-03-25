@@ -1,0 +1,5 @@
+cred/**/*
+database/**/*
+extensions/**/*
+foundry/data/**/*
+uploads/**/*
