@@ -48,4 +48,4 @@ export G_CLOUD_KEYFILE_PATH=$GCloudKeyFilePath
 
 
 docker volume create $CaddyDataVolumeName;
-docker compose up;
+docker compose up --detach;
