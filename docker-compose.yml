@@ -39,7 +39,7 @@ services:
       - ./database:/directus/database
       # If you want to load extensions from the host
       - ./extensions:/directus/extensions
-      # - ./cred:/directus/cred
+      - ./cred:/directus/cred
     networks:
       - directus
     depends_on:
@@ -62,8 +62,8 @@ services:
       STORAGE_LOCATIONS: "gcs"
       STORAGE_GCS_DRIVER: "gcs"
       STORAGE_GCS_ROOT: "cms"
-      STORAGE_GCS_BUCKET: "${G_CLOUD_KEYFILE_PATH}"
-      STORAGE_GCS_KEY_FILENAME: "${G_CLOUD_KEYFILE_PATH}"
+      STORAGE_GCS_BUCKET: "${G_CLOUD_BUCKET}"
+      STORAGE_GCS_KEY_FILENAME: "/directus/${G_CLOUD_KEYFILE_PATH}"
 
       # Make sure to set this in production
       # (see https://docs.directus.io/configuration/config-options/#general)
