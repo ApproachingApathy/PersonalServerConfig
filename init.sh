@@ -24,7 +24,7 @@ done
 if  docker volume ls | grep -q "$CaddyDataVolumeName"; then
     echo "Volume \`$CaddyDataVolumeName\` exists. Skipping creation...";
 else 
-    docker volume create caddy_data;
+    docker volume create $CaddyDataVolumeName;
     echo "Created \`$CaddyDataVolumeName\` volume."
 fi
 
@@ -47,5 +47,4 @@ export G_CLOUD_KEYFILE_PATH=$GCloudKeyFilePath
 
 
 
-docker volume create $CaddyDataVolumeName;
 docker compose up --detach;
