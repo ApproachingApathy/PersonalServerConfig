@@ -1,8 +1,8 @@
-cms.ephriamhenderson.dev, :44633 {
+cms.ephriamhenderson.dev {
 	reverse_proxy directus:8055
 }
 
-foundry.ephriamhenderson.dev, :44634 {
+foundry.ephriamhenderson.dev {
 	reverse_proxy foundry:30000
 }
 
