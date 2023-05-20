@@ -16,16 +16,16 @@ services:
       - foundry
 
   cache:
+    image: redis:6
     restart: unless-stopped
     container_name: cache
-    image: redis:6
     networks:
       - directus
 
   directus:
+    image: directus/directus:latest
     restart: unless-stopped
     container_name: directus
-    image: directus/directus:latest
     ports:
       - 8055:8055
     volumes:
@@ -70,6 +70,7 @@ services:
   # Foundry
   foundry:
     image: felddy/foundryvtt:release
+    restart: unless-stopped
     hostname: my_foundry_host
     init: true
     volumes:
@@ -86,6 +87,7 @@ services:
 networks:
   directus:
   foundry:
+  nextcloud:
 
 volumes:
   caddy_data:
