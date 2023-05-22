@@ -6,5 +6,6 @@ foundry.ephriamhenderson.dev {
 	reverse_proxy foundry:30000
 }
 
-
-
+gpod.ephriamhenderson.dev {
+	reverse_proxy gpodder:3305
+}

@@ -3,3 +3,4 @@ database/**/*
 extensions/**/*
 foundry/data/**/*
 uploads/**/*
+gpodder/**/*
