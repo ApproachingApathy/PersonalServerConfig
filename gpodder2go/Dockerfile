@@ -9,6 +9,7 @@ RUN apk add --no-cache curl \
   && apk del curl
 
 RUN git clone https://github.com/oxtyped/gpodder2go.git /app/gpodder2go
+RUN cd /app/gpodder2go && git checkout tags/v0.1.1
 
 RUN cd /app/gpodder2go && make build
 
@@ -30,4 +31,4 @@ RUN cd /app && ./gpodder2go init
 # Run
 CMD ["sh", "-c", "/app/gpodder2go serve -b 0.0.0.0:3305"]
 
-RUN cd /app && ./gpodder2go accounts create ${G2G_USERNAME} --email="$G2G_EMAIL" --name="$G2G_DISPLAY_NAME" --password="$G2G_PASSWORD"
+RUN cd /app && ./gpodder2go accounts create $G2G_USERNAME --email="$G2G_EMAIL" --name="$G2G_DISPLAY_NAME" --password="$G2G_PASSWORD"
