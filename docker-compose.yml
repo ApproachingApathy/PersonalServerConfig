@@ -93,10 +93,10 @@ services:
     restart: unless-stopped
     environment:
       VERIFIER_SECRET_KEY: ${G_PODDER_VERIFIER_KEY}
-      G2G_USERNAME: ${G_PODDER_USERNAME}
       G2G_EMAIL: ${G_PODDER_EMAIL}
-      G2G_DISPLAY_NAME: ${G_PODDER_EMAIL}
-      G2G_PASSWORD: ${G_PODDER_VERIFIER_KEY}
+      G2G_USERNAME: ${G_PODDER_USERNAME}
+      G2G_DISPLAY_NAME: ${G_PODDER_USERNAME}
+      G2G_PASSWORD: ${G_PODDER_PASSWORD}
     ports:
       - 3005:3305
     volumes:
