@@ -2,7 +2,7 @@
 
 CaddyDataVolumeName="caddy_data"
 CredentialStorageFolder="cred"
-VolumeFolders=($CrendentialStorageFolder "database" "extensions" "uploads" "caddy/site" "foundry" "foundry/data" "gpodder")
+VolumeFolders=($CrendentialStorageFolder "database" "extensions" "uploads" "caddy/site" "foundry" "foundry/data" "gpodder" "gpodder/data")
 GCloudStoragePrincipal=$(gcloud secrets versions access latest --secret=personal_site_storage_principle)
 GCloudKeyFilePath="${CredentialStorageFolder}/gcs-keyfile.json"
 

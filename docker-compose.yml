@@ -6,7 +6,6 @@ services:
     ports:
       - "80:80"
       - "443:443"
-      - "3305:3305"
     volumes:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile
       - ./caddy/site:/srv
@@ -98,9 +97,9 @@ services:
       G2G_DISPLAY_NAME: ${G_PODDER_USERNAME}
       G2G_PASSWORD: ${G_PODDER_PASSWORD}
     ports:
-      - 3005:3305
+      - 3305:3305
     volumes:
-      - ./gpodder/g2g.db:/gpodder2go/g2g.db
+      - ./gpodder/data:/app/data
     networks:
       - gpodder
     

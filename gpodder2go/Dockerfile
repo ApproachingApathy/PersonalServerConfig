@@ -26,9 +26,10 @@ ARG G2G_PASSWORD ""
 EXPOSE 3305
 
 COPY --from=build-stage /app/gpodder2go/gpodder2go /app/gpodder2go
+RUN mkdir /app/data
 
-RUN cd /app && ./gpodder2go init
+RUN cd /app && ./gpodder2go init -d /app/data/g2g.db
 # Run
-CMD ["sh", "-c", "/app/gpodder2go serve -b 0.0.0.0:3305"]
+CMD ["sh", "-c", "/app/gpodder2go serve -b 0.0.0.0:3305 -d /app/data/g2g.db"]
 
-RUN cd /app && ./gpodder2go accounts create $G2G_USERNAME --email="$G2G_EMAIL" --name="$G2G_DISPLAY_NAME" --password="$G2G_PASSWORD"
+RUN cd /app && ./gpodder2go accounts --api-addr='0.0.0.0:3305' create $G2G_USERNAME --email="$G2G_EMAIL" --name="$G2G_DISPLAY_NAME" --password="$G2G_PASSWORD" -d "/app/data/g2g.db"
