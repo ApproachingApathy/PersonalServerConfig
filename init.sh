@@ -2,7 +2,7 @@
 
 CaddyDataVolumeName="caddy_data"
 CredentialStorageFolder="cred"
-VolumeFolders=($CrendentialStorageFolder "database" "extensions" "uploads" "caddy/site" "foundry" "foundry/data" "gpodder" "gpodder/data")
+VolumeFolders=($CrendentialStorageFolder "database" "extensions" "uploads" "caddy/site" "foundry" "foundry/data" "nextcloud" "nextcloud/db" "nextcloud/data")
 GCloudStoragePrincipal=$(gcloud secrets versions access latest --secret=personal_site_storage_principle)
 GCloudKeyFilePath="${CredentialStorageFolder}/gcs-keyfile.json"
 
@@ -37,10 +37,9 @@ else
     gcloud iam service-accounts keys create cred/gcs-keyfile.json --iam-account=$GCloudStoragePrincipal
 fi
 
-export G_PODDER_EMAIL=$(gcloud secrets versions access latest --secret=gpodder_go_email)
-export G_PODDER_PASSWORD=$(gcloud secrets versions access latest --secret=gpodder_go_password)
-export G_PODDER_USERNAME=$(gcloud secrets versions access latest --secret=gpodder_go_username)
-export G_PODDER_VERIFIER_KEY=$(gcloud secrets versions access latest --secret=gpodder_go_verifier_key)
+export NEXTCLOUD_DB_ROOT_PASSWORD=$(gcloud secrets versions access latest --secret=nextcloud_db_root_password)
+export NEXTCLOUD_DB_PASSWORD=$(gcloud secrets versions access latest --secret=nextcloud_db_password)
+export NEXTCLOUD_ADMIN_PASSWORD=$(gcloud secrets versions access latest --secret=nextcloud_admin_password)
 export DIRECTUS_SECRET=$(gcloud secrets versions access latest --secret=directus_secret)
 export DIRECTUS_ADMIN_EMAIL=$(gcloud secrets versions access latest --secret=directus_admin_email)
 export DIRECTUS_ADMIN_PASSWORD=$(gcloud secrets versions access latest --secret=directus_admin_password)

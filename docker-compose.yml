@@ -6,6 +6,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
+      - "30005:30005"
     volumes:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile
       - ./caddy/site:/srv
@@ -14,19 +15,17 @@ services:
     networks: 
       - directus
       - foundry
-      - gpodder
+      - nextcloud
 
   cache:
     image: redis:6
     restart: unless-stopped
-    container_name: cache
     networks:
       - directus
 
   directus:
     image: directus/directus:latest
     restart: unless-stopped
-    container_name: directus
     ports:
       - 8055:8055
     volumes:
@@ -83,32 +82,45 @@ services:
     ports:
       - 30000:30000
     networks:
-      - foundry
+      - foundry 
   
-  gpodder:
-    build:
-      context: ./gpodder2go
-      dockerfile: Dockerfile
+  nextcloud-db:
+    image: mariadb:10.6
     restart: unless-stopped
-    environment:
-      VERIFIER_SECRET_KEY: ${G_PODDER_VERIFIER_KEY}
-      G2G_EMAIL: ${G_PODDER_EMAIL}
-      G2G_USERNAME: ${G_PODDER_USERNAME}
-      G2G_DISPLAY_NAME: ${G_PODDER_USERNAME}
-      G2G_PASSWORD: ${G_PODDER_PASSWORD}
-    ports:
-      - 3305:3305
+    command: --transaction-isolation=READ-COMMITTED --log-bin=binlog --binlog-format=ROW
     volumes:
-      - ./gpodder/data:/app/data
+      - ./nextcloud/db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${NEXTCLOUD_DB_ROOT_PASSWORD}
+      - MYSQL_PASSWORD=${NEXTCLOUD_DB_PASSWORD}
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
     networks:
-      - gpodder
-    
-    
+      - nextcloud
+
+  nextcloud:
+    image: nextcloud
+    restart: unless-stopped
+    ports:
+      - 8080:80
+    volumes:
+      - ./nextcloud/data:/var/www/html
+    environment:
+      - MYSQL_PASSWORD=${NEXTCLOUD_DB_PASSWORD}
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_HOST=nextcloud-db
+      - NEXTCLOUD_ADMIN_USER=admin
+      - NEXTCLOUD_ADMIN_PASSWORD=${NEXTCLOUD_ADMIN_PASSWORD}
+    networks:
+      - nextcloud
+
+  
 
 networks:
   directus:
   foundry:
-  gpodder:
+  nextcloud:
 
 volumes:
   caddy_data:
