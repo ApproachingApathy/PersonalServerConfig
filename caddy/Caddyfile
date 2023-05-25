@@ -6,7 +6,6 @@ foundry.ephriamhenderson.dev {
 	reverse_proxy foundry:30000
 }
 
-http://localhost:30005 {
+nextcloud.ephriamhenderson.dev {
 	reverse_proxy nextcloud:80
-	# respond "Hello"
 }
